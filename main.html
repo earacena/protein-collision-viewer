@@ -27,7 +27,7 @@ var s = document.location.search;
 Jmol._debugCode = (s.indexOf("debugcode") >= 0);
 
 jmol_isReady = function(applet) {
-	document.title = (applet._id + " - Jmol " + Jmol.___JmolVersion)
+	document.title = ("Amino Acid Collision Viewer")
 	Jmol._getElement(applet, "appletdiv").style.border="1px solid blue"
 }		
 
@@ -42,7 +42,7 @@ var Info = {
 	jarPath: "./java",// this needs to point to where the java directory is.
 	jarFile: "JmolAppletSigned.jar",
 	isSigned: true,
-	script: "set zoomlarge false;set antialiasDisplay;load data/caffeine.mol",
+	script: "set zoomlarge false;set antialiasDisplay;load data/caffeine.mol;set spin on",
 	serverURL: "https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
 	readyFunction: jmol_isReady,
 	disableJ2SLoadMonitor: true,
@@ -52,6 +52,45 @@ var Info = {
 	//console: "none", // default will be jmolApplet0_infodiv, but you can designate another div here or "none"
 }
 
+// -----  Molecule manipulation code ----- //
+
+// Global variables
+var aminoAcid0 = "amino0"
+var aminoAcid1 = "amino1"
+
+// Phi torsion angle
+var phi = 0
+
+// Psi torsion angle
+var psi = 0
+
+// Load molecule
+function loadMolecule(aminoAcid0, aminoAcid1) {
+
+  var filename = aminoAcid0 + "_" + aminoAcid1 + ".pdb"
+
+  // JSmol load
+  Jmol.script(JmolApplet0, 'load ./data/' + filename)  
+  return;
+}
+
+// Rotate bond +5 degrees
+function rotateBondFiveDegreesPlus() {
+  return;
+}
+
+// Rotate bond -5 degrees
+function rotateBondFiveDegreesMinus() {
+  return;
+}
+
+function toggleCollision() {
+
+  return;
+}
+
+
+
 $(document).ready(function() {
   $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
 })
@@ -60,7 +99,10 @@ var lastPrompt=0;
 </head>
 <body>
 
-<center> Protein Collision Viewer with live Ramachandran plot. </center>
+<center><font size="6"> Amino Acid Collision Viewer with live Ramachandran plot. </font></center>
 <center> <div id="appdiv"></div> </center>
+
+
+
 </body>
 </html>
