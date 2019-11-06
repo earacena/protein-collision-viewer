@@ -88,20 +88,165 @@ function toggleCollision() {
 
   return;
 }
-
-
-
+function readphi(){
+  phi.toString();
+}
 $(document).ready(function() {
   $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
 })
 var lastPrompt=0;
+
+
+
+
 </script>
 </head>
 <body>
 
+   
+
 <center><font size="6"> Amino Acid Collision Viewer with live Ramachandran plot. </font></center>
 <center> <div id="appdiv"></div> </center>
 
+<center><h2 style ="color : black;">Phi Rotation:</h2>
+    <button onclick="phi_rotate_plus()">+ 10</button>
+    <button onclick="phi_rotate_minus()">- 10</button>
+    <p> Current degree : </p>
+     
+      
+    
+    <h2 style ="color : black;">Psi Rotation: </h2>
+    <button onclick="psi_rotate_plus()">+ 10</button>
+    <button onclick="psi_rotate_minus()">- 10</button>
+    <p> Current degree : </p>
+    
+</center>
+
+
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JSmol -- Jmol/HTML5 Demo</title>
+<script type="text/javascript" src="JSmol.min.js"></script>
+
+<script type="text/javascript">
+
+Jmol._isAsync = false;
+
+// last update 2/18/2014 2:10:06 PM
+
+var jmolApplet0; // set up in HTML table, below
+
+// logic is set by indicating order of USE -- default is HTML5 for this test page, though
+
+var s = document.location.search;
+
+// Developers: The _debugCode flag is checked in j2s/core/core.z.js, 
+// and, if TRUE, skips loading the core methods, forcing those
+// to be read from their individual directories. Set this
+// true if you want to do some code debugging by inserting
+// System.out.println, document.title, or alert commands
+// anywhere in the Java or Jmol code.
+
+Jmol._debugCode = (s.indexOf("debugcode") >= 0);
+
+jmol_isReady = function(applet) {
+	document.title = ("Amino Acid Collision Viewer")
+	Jmol._getElement(applet, "appletdiv").style.border="1px solid blue"
+}		
+
+var Info = {
+	width: 800,
+	height: 600,
+	debug: false,
+	color: "0xFFFFFF",
+	//addSelectionOptions: true,
+	use: "HTML5",   // JAVA HTML5 WEBGL are all options
+	j2sPath: "./j2s", // this needs to point to where the j2s directory is.
+	jarPath: "./java",// this needs to point to where the java directory is.
+	jarFile: "JmolAppletSigned.jar",
+	isSigned: true,
+	script: "set zoomlarge false;set antialiasDisplay;load data/ala-gly.mol;set spin on",
+	serverURL: "https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
+	readyFunction: jmol_isReady,
+	disableJ2SLoadMonitor: true,
+  disableInitialConsole: true,
+  allowJavaScript: true
+	//defaultModel: "$dopamine",
+	//console: "none", // default will be jmolApplet0_infodiv, but you can designate another div here or "none"
+}
+
+// -----  Molecule manipulation code ----- //
+
+// Global variables
+var aminoAcid0 = "amino0"
+var aminoAcid1 = "amino1"
+
+// Phi torsion angle
+var phi = 0
+
+// Psi torsion angle
+var psi = 0
+
+// Load molecule
+function loadMolecule(aminoAcid0, aminoAcid1) {
+
+  var filename = aminoAcid0 + "_" + aminoAcid1 + ".pdb"
+
+  // JSmol load
+  Jmol.script(JmolApplet0, 'load ./data/' + filename)  
+  return;
+}
+
+// Rotate bond +5 degrees
+function rotateBondFiveDegreesPlus() {
+  return;
+}
+
+// Rotate bond -5 degrees
+function rotateBondFiveDegreesMinus() {
+  return;
+}
+
+function toggleCollision() {
+
+  return;
+}
+function readphi(){
+  phi.toString();
+}
+$(document).ready(function() {
+  $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
+})
+var lastPrompt=0;
+
+
+
+
+</script>
+</head>
+<body>
+
+   
+
+<center><font size="6"> Amino Acid Collision Viewer with live Ramachandran plot. </font></center>
+<center> <div id="appdiv"></div> </center>
+
+<center><h2 style ="color : black;">Phi Rotation:</h2>
+    <button onclick="phi_rotate_plus()">+ 10</button>
+    <button onclick="phi_rotate_minus()">- 10</button>
+    <p> Current degree : </p>
+     
+      
+    
+    <h2 style ="color : black;">Psi Rotation: </h2>
+    <button onclick="psi_rotate_plus()">+ 10</button>
+    <button onclick="psi_rotate_minus()">- 10</button>
+    <p> Current degree : </p>
+    
+</center>
 
 
 </body>
