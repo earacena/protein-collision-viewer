@@ -54,9 +54,9 @@ var Info = {
 
 // -----  Molecule manipulation code ----- //
 
-// Global variables
-var aminoAcid0 = "amino0"
-var aminoAcid1 = "amino1"
+// Global variables, initialized with default molecule
+var aminoAcid0 = "ALA"
+var aminoAcid1 = "GLY"
 
 // Phi torsion angle
 var phi = 0
@@ -67,20 +67,34 @@ var psi = 0
 // Load molecule
 function loadMolecule(aminoAcid0, aminoAcid1) {
 
-  var filename = aminoAcid0 + "_" + aminoAcid1 + ".pdb"
+  var filename = aminoAcid0 + "-" + aminoAcid1 + ".mol"
 
   // JSmol load
   Jmol.script(JmolApplet0, 'load ./data/' + filename)  
   return;
 }
 
-// Rotate bond +5 degrees
-function rotateBondFiveDegreesPlus() {
+function simulate_planes() {
+
+  if ((aminoAcid0 == "ALA") && (aminoAcid1 == "GLY")) {
+    Jmol.script(jmolApplet0, 'draw psi_plane plane (atomno = 9) (atomno = 10) (atomno = 2) (atomno = 3)')
+  }
   return;
 }
 
-// Rotate bond -5 degrees
-function rotateBondFiveDegreesMinus() {
+function phi_rotate_plus() {
+  return;
+}
+
+function phi_rotate_minus() {
+  return;
+}
+
+function psi_rotate_plus() {
+  return;
+}
+
+function psi_rotate_minus() {
   return;
 }
 
@@ -89,7 +103,7 @@ function toggleCollision() {
   return;
 }
 function readphi(){
-  phi.toString();
+  return phi.toString();
 }
 $(document).ready(function() {
   $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
@@ -108,7 +122,12 @@ var lastPrompt=0;
 <center><font size="6"> Amino Acid Collision Viewer with live Ramachandran plot. </font></center>
 <center> <div id="appdiv"></div> </center>
 
-<center><h2 style ="color : black;">Phi Rotation:</h2>
+<center>
+
+    <h2 style ="color : black;">Planes: </h2>
+    <button onclick="simulate_planes();">Go</button>
+
+    <h2 style ="color : black;">Phi Rotation:</h2>
     <button onclick="phi_rotate_plus()">+ 10</button>
     <button onclick="phi_rotate_minus()">- 10</button>
     <p> Current degree : </p>
