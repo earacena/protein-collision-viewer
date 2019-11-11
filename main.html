@@ -55,59 +55,70 @@ var Info = {
 // -----  Molecule manipulation code ----- //
 
 // Global variables, initialized with default molecule
-var aminoAcid0 = "ALA"
-var aminoAcid1 = "GLY"
+var aminoAcid0 = "ALA";
+var aminoAcid1 = "GLY";
 
 // Phi torsion angle
-var phi = 0
+var phi = 0;
 
 // Psi torsion angle
-var psi = 0
+var psi = 0;
+
+// plane flags
+var plane_flag = false;
 
 // Load molecule
-function loadMolecule(aminoAcid0, aminoAcid1) {
+function load_molecule(aminoAcid0, aminoAcid1) {
 
-  var filename = aminoAcid0 + "-" + aminoAcid1 + ".mol"
+  var filename = aminoAcid0 + "-" + aminoAcid1 + ".mol";
 
   // JSmol load
-  Jmol.script(JmolApplet0, 'load ./data/' + filename)  
+  Jmol.script(JmolApplet0, 'load ./data/' + filename);
   return;
 }
 
 function simulate_planes() {
-
+  plane_flag = true;
   if ((aminoAcid0 == "ALA") && (aminoAcid1 == "GLY")) {
-    Jmol.script(jmolApplet0, 'draw psi_plane plane (atomno = 9) (atomno = 10) (atomno = 2) (atomno = 3)')
+    Jmol.script(jmolApplet0, 'draw psi_plane plane (atomno = 9) (atomno = 10) (atomno = 2) (atomno = 3)');
+    Jmol.script(jmolApplet0, 'draw phi_plane plane (atomno = 7) (atomno = 6) (atomno = 5) ');
   }
   return;
 }
 
 function phi_rotate_plus() {
+  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) 10 30');
   return;
 }
 
 function phi_rotate_minus() {
+  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) -10 -30');
   return;
 }
 
 function psi_rotate_plus() {
+  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) 10 30');
   return;
 }
 
 function psi_rotate_minus() {
+  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) -10 -30');
   return;
 }
 
-function toggleCollision() {
-
+function toggle_collision() {
+  Jmol.script(jmolApplet0, 'contact $psi_plane $phi_plane clash');
   return;
 }
+
 function readphi(){
   return phi.toString();
 }
+
 $(document).ready(function() {
   $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
 })
+
 var lastPrompt=0;
 
 
