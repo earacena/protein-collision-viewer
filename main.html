@@ -42,7 +42,7 @@ var Info = {
 	jarPath: "./java",// this needs to point to where the java directory is.
 	jarFile: "JmolAppletSigned.jar",
 	isSigned: true,
-	script: "set zoomlarge false;set antialiasDisplay;load data/ala-gly.mol;set spin on",
+	script: "set zoomlarge false;set antialiasDisplay;load data/ala-gly.mol;set spin on;",
 	serverURL: "https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
 	readyFunction: jmol_isReady,
 	disableJ2SLoadMonitor: true,
@@ -86,6 +86,10 @@ function simulate_planes() {
   return;
 }
 
+function update_clashes() {
+  Jmol.script(jmolApplet0, 'contact delete;contact {oxygen or carbon or nitrogen} {oxygen or carbon or nitrogen};')
+}
+
 function phi_rotate_plus() {
   Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) 10 30');
   return;
@@ -107,7 +111,7 @@ function psi_rotate_minus() {
 }
 
 function toggle_collision() {
-  Jmol.script(jmolApplet0, 'contact $psi_plane $phi_plane clash');
+  Jmol.script(jmolApplet0, 'contact clash');
   return;
 }
 
@@ -135,8 +139,8 @@ var lastPrompt=0;
 
 <center>
 
-    <h2 style ="color : black;">Planes: </h2>
-    <button onclick="simulate_planes();">Go</button>
+    <h2 style ="color : black;">Update Clashes: </h2>
+    <button onclick="update_clashes();">Go</button>
 
     <h2 style ="color : black;">Phi Rotation:</h2>
     <button onclick="phi_rotate_plus()">+ 10</button>
