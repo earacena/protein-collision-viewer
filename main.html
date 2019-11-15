@@ -87,6 +87,8 @@ function simulate_planes() {
 }
 
 function update_clashes() {
+  // To return the number of atoms in clash, use this script format:
+  // x = contact({atomset1} {atomset2});set background [x*90, 0, 0]
   Jmol.script(jmolApplet0, 'contact delete;contact {oxygen or carbon or nitrogen} {oxygen or carbon or nitrogen};')
 }
 
@@ -138,10 +140,6 @@ var lastPrompt=0;
 <center> <div id="appdiv"></div> </center>
 
 <center>
-
-    <h2 style ="color : black;">Update Clashes: </h2>
-    <button onclick="update_clashes();">Go</button>
-
     <h2 style ="color : black;">Phi Rotation:</h2>
     <button onclick="phi_rotate_plus();update_clashes();">+ 10</button>
     <button onclick="phi_rotate_minus();update_clashes()">- 10</button>
