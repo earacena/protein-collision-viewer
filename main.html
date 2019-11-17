@@ -78,7 +78,9 @@ function load_molecule() {
   // JSmol load
   Jmol.script(jmolApplet0, '!quit;load ./data/' + filename);
   phi = 0;
+  document.getElementById("phi").innerText = readphi();
   psi = 0;
+  document.getElementById("psi").innerText = readphi();
   return;
 }
 
