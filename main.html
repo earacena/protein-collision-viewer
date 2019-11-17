@@ -68,7 +68,7 @@ var plane_flag = false;
 
 // Load molecule
 function load_molecule() {
-  var aminoAcid = document.getElementById("menu").value;
+  aminoAcid = document.getElementById("menu").value;
   var filename = aminoAcid;
   if (aminoAcid == "ala-gly") {
     filename = filename + ".mol";
@@ -81,15 +81,6 @@ function load_molecule() {
   psi = 0;
   return;
 }
-
-//function simulate_planes() {
-//  plane_flag = true;
-//  if ((aminoAcid0 == "ALA") && (aminoAcid1 == "GLY")) {
-//    Jmol.script(jmolApplet0, 'draw psi_plane plane (atomno = 9) (atomno = 10) (atomno = 2) (atomno = 3)');
-//    Jmol.script(jmolApplet0, 'draw phi_plane plane (atomno = 7) (atomno = 6) (atomno = 5) ');
-//  }
-//  return;
-//}
 
 function update_clashes() {
   // To return the number of atoms in clash, use this script format:
