@@ -55,8 +55,7 @@ var Info = {
 // -----  Molecule manipulation code ----- //
 
 // Global variables, initialized with default molecule
-var aminoAcid0 = "ala";
-var aminoAcid1 = "";
+var aminoAcid = "ala";
 
 // Phi torsion angle
 var phi = 0;
@@ -68,16 +67,18 @@ var psi = 0;
 var plane_flag = false;
 
 // Load molecule
-function load_molecule(aminoAcid0, aminoAcid1) {
-
-  var filename = aminoAcid0 + "-" + aminoAcid1;
-  if (aminoAcid0 == "ala" && aminoAcid1 == "gly") {
+function load_molecule() {
+  var aminoAcid = document.getElementById("menu").value;
+  var filename = aminoAcid;
+  if (aminoAcid == "ala-gly") {
     filename = filename + ".mol";
   } else {
     filename = filename + ".pdb";
   }
   // JSmol load
-  Jmol.script(JmolApplet0, 'load ./data/' + filename);
+  Jmol.script(jmolApplet0, '!quit;load ./data/' + filename);
+  phi = 0;
+  psi = 0;
   return;
 }
 
@@ -98,43 +99,50 @@ function update_clashes() {
   return;
 }
 
-function phi_rotate_plus() {
- 
-  // ALANINE
-  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) 10 30');
-
-  // ALA-GLY
-  // Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) 10 30');
+function phi_rotate_plus() { 
+  if (aminoAcid == "ala") {
+    // Alanine
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) 10 30');
+  } else if (aminoAcid == "ala-gly") {
+    // ALA-GLY
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) 10 30');
+  }
   phi = phi + 10;
   return;
 }
 
 function phi_rotate_minus() {
-  // ALANINE
-  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) -10 -30');
-
-  // ALA-GLY
-  // Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) -10 -30');
+  if (aminoAcid == "ala") {
+    // Alanine
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) -10 -30');
+  } else if (aminoAcid == "ala-gly") {
+    // ALA-GLY
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) -10 -30');
+  }
   phi = phi - 10;
   return;
 }
 
 function psi_rotate_plus() {
-  // ALANINE
-  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 5) 10 30');
-
-  // ALA-GLY
-  // Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) 10 30');
+  if (aminoAcid == "ala") {
+    // ALANINE
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 5) 10 30');
+  } else if (aminoAcid == "ala-gly") {
+    // ALA-GLY
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) 10 30');
+  }
   psi = psi + 10;
   return;
 }
 
 function psi_rotate_minus() {
-  // ALANINE
-  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 5) -10 -30');
-
-  // ALA-GLY
-  // Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) -10 -30');
+  if (aminoAcid == "ala") {
+    // ALANINE
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 5) -10 -30');
+  } else if (aminoAcid == "ala-gly") {
+    // ALA-GLY
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) -10 -30');
+  }
   psi = psi - 10;
   return;
 }
@@ -164,8 +172,15 @@ var lastPrompt=0;
 
 <center><font size="6"> Amino Acid Collision Viewer with live Ramachandran plot. </font></center>
 <center> <div id="appdiv"></div> </center>
-
 <center>
+    <h2 style = "color : black;">Amino Acid:</h2>
+    <select id="menu">
+      <option value = "ala">Alanine (ALA)</option> 
+      <option value = "ala-gly">Alanine-Glycine (ALA-GLY)</option>
+    </select>
+    <button onclick="load_molecule();">Load</button>
+
+
     <h2 style ="color : black;">Phi Rotation:</h2>
     <button onclick="phi_rotate_plus();update_clashes();">+ 10</button>
     <button onclick="phi_rotate_minus();update_clashes()">- 10</button>
