@@ -42,7 +42,7 @@ var Info = {
 	jarPath: "./java",// this needs to point to where the java directory is.
 	jarFile: "JmolAppletSigned.jar",
 	isSigned: true,
-	script: "set zoomlarge false;set antialiasDisplay;load data/ala-gly.mol;set spin on;",
+	script: "set zoomlarge false;set antialiasDisplay;load data/ala.pdb;set spin on;",
 	serverURL: "https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
 	readyFunction: jmol_isReady,
 	disableJ2SLoadMonitor: true,
@@ -55,8 +55,8 @@ var Info = {
 // -----  Molecule manipulation code ----- //
 
 // Global variables, initialized with default molecule
-var aminoAcid0 = "ALA";
-var aminoAcid1 = "GLY";
+var aminoAcid0 = "ala";
+var aminoAcid1 = "";
 
 // Phi torsion angle
 var phi = 0;
@@ -70,51 +70,77 @@ var plane_flag = false;
 // Load molecule
 function load_molecule(aminoAcid0, aminoAcid1) {
 
-  var filename = aminoAcid0 + "-" + aminoAcid1 + ".mol";
-
+  var filename = aminoAcid0 + "-" + aminoAcid1;
+  if (aminoAcid0 == "ala" && aminoAcid1 == "gly") {
+    filename = filename + ".mol";
+  } else {
+    filename = filename + ".pdb";
+  }
   // JSmol load
   Jmol.script(JmolApplet0, 'load ./data/' + filename);
   return;
 }
 
-function simulate_planes() {
-  plane_flag = true;
-  if ((aminoAcid0 == "ALA") && (aminoAcid1 == "GLY")) {
-    Jmol.script(jmolApplet0, 'draw psi_plane plane (atomno = 9) (atomno = 10) (atomno = 2) (atomno = 3)');
-    Jmol.script(jmolApplet0, 'draw phi_plane plane (atomno = 7) (atomno = 6) (atomno = 5) ');
-  }
-  return;
-}
+//function simulate_planes() {
+//  plane_flag = true;
+//  if ((aminoAcid0 == "ALA") && (aminoAcid1 == "GLY")) {
+//    Jmol.script(jmolApplet0, 'draw psi_plane plane (atomno = 9) (atomno = 10) (atomno = 2) (atomno = 3)');
+//    Jmol.script(jmolApplet0, 'draw phi_plane plane (atomno = 7) (atomno = 6) (atomno = 5) ');
+//  }
+//  return;
+//}
 
 function update_clashes() {
   // To return the number of atoms in clash, use this script format:
   // x = contact({atomset1} {atomset2});set background [x*90, 0, 0]
   Jmol.script(jmolApplet0, 'contact delete;contact {oxygen or carbon or nitrogen} {oxygen or carbon or nitrogen};')
+  
+  return;
 }
 
 function phi_rotate_plus() {
-  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) 10 30');
+ 
+  // ALANINE
+  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) 10 30');
+
+  // ALA-GLY
+  // Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) 10 30');
+  phi = phi + 10;
   return;
 }
 
 function phi_rotate_minus() {
-  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) -10 -30');
+  // ALANINE
+  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) -10 -30');
+
+  // ALA-GLY
+  // Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) -10 -30');
+  phi = phi - 10;
   return;
 }
 
 function psi_rotate_plus() {
-  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) 10 30');
+  // ALANINE
+  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 5) 10 30');
+
+  // ALA-GLY
+  // Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) 10 30');
+  psi = psi + 10;
   return;
 }
 
 function psi_rotate_minus() {
-  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) -10 -30');
+  // ALANINE
+  Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 5) -10 -30');
+
+  // ALA-GLY
+  // Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 7) -10 -30');
+  psi = psi - 10;
   return;
 }
 
-function toggle_collision() {
-  Jmol.script(jmolApplet0, 'contact clash');
-  return;
+function readpsi() {
+  return psi.toString();
 }
 
 function readphi(){
