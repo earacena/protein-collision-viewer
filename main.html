@@ -197,6 +197,20 @@ var lastPrompt=0;
 <center>
     
     <h2 style = "color : black;">Ramachandran plot:</h2>
+    <canvas id="ramacanvas"></canvas>
+    <script>
+      var canvas = document.getElementById("ramacanvas")
+      var context = canvas.getContext("2d");
+      canvas.width = 360;
+      canvas.height = 360;
+      var background = new Image();
+      background.src = "https://raw.githubusercontent.com/earacena/protein-collision-viewer/master/data/ala_plot.png";
+      background.onload = function() {
+        background.width = 360;
+        background.height = 360;
+        context.drawImage(background, 0, 0);
+      }
+    </script>
 
     <h2 style = "color : black;">Amino Acid:</h2>
     <select id="menu">
