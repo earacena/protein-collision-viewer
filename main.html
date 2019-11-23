@@ -173,6 +173,10 @@ function readphi(){
   return phi.toString();
 }
 
+function readamino() {
+  return aminoAcid;
+}
+
 $(document).ready(function() {
   $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
 })
@@ -191,6 +195,9 @@ var lastPrompt=0;
 <center><font size="6"> Amino Acid Collision Viewer with live Ramachandran plot. </font></center>
 <center> <div id="appdiv"></div> </center>
 <center>
+    
+    <h2 style = "color : black;">Ramachandran plot:</h2>
+
     <h2 style = "color : black;">Amino Acid:</h2>
     <select id="menu">
       <option value = "ala">Alanine (ALA)</option> 
