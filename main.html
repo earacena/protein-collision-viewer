@@ -81,6 +81,51 @@ function load_molecule() {
   document.getElementById("phi").innerText = readphi();
   psi = 0;
   document.getElementById("psi").innerText = readphi();
+  load_rama();
+  return;
+}
+
+function load_rama() {
+  aminoAcid = document.getElementById("menu").value;
+  var filename = aminoAcid + "_plot.png";
+ 
+  var canvas = document.getElementById("ramacanvas");
+  var context = canvas.getContext("2d");
+  var background = new Image();
+  background.src = "https://raw.githubusercontent.com/earacena/protein-collision-viewer/master/data/" + filename;
+  background.onload = function() {
+    context.drawImage(background, 0, 0);
+  }
+  return; 
+}
+
+function update_rama() {
+
+  // Clear canvas to plot image
+  var canvas = document.getElementById("ramacanvas");
+  var context = canvas.getContext("2d");
+  var background = new Image();
+  aminoAcid = document.getElementById("menu").value;
+  var filename = aminoAcid + "_plot.png";
+  background.src = "https://raw.githubusercontent.com/earacena/protein-collision-viewer/master/data/" + filename;
+  background.onload = function() {
+    context.drawImage(background, 0, 0);
+    // Draw vertical line
+    context.beginPath();
+    context.moveTo(180+phi, 0);
+    context.lineTo(180+phi, 360);
+    context.stroke();
+    context.closePath();
+  
+    // Draw horizontal line
+    context.beginPath();  
+    context.moveTo(0, 180+psi);
+    context.lineTo(360, 180+psi);
+    context.stroke();
+    context.closePath();
+  
+  }
+
   return;
 }
 
@@ -188,7 +233,7 @@ var lastPrompt=0;
 
 </script>
 </head>
-<body>
+<body onload="load_rama();">
 
    
 
@@ -197,20 +242,7 @@ var lastPrompt=0;
 <center>
     
     <h2 style = "color : black;">Ramachandran plot:</h2>
-    <canvas id="ramacanvas"></canvas>
-    <script>
-      var canvas = document.getElementById("ramacanvas")
-      var context = canvas.getContext("2d");
-      canvas.width = 360;
-      canvas.height = 360;
-      var background = new Image();
-      background.src = "https://raw.githubusercontent.com/earacena/protein-collision-viewer/master/data/ala_plot.png";
-      background.onload = function() {
-        background.width = 360;
-        background.height = 360;
-        context.drawImage(background, 0, 0);
-      }
-    </script>
+    <canvas width=360 height=360 id="ramacanvas"></canvas>
 
     <h2 style = "color : black;">Amino Acid:</h2>
     <select id="menu">
@@ -221,15 +253,15 @@ var lastPrompt=0;
 
 
     <h2 style ="color : black;">Phi Rotation:</h2>
-    <button onclick="phi_rotate_plus();update_clashes();">+ 10</button>
-    <button onclick="phi_rotate_minus();update_clashes();">- 10</button>
+    <button onclick="phi_rotate_plus();update_clashes();update_rama();">+ 10</button>
+    <button onclick="phi_rotate_minus();update_clashes();update_rama();">- 10</button>
     <p> Current degree : </p> <p id ="phi">0</p>
      
       
     
     <h2 style ="color : black;">Psi Rotation: </h2>
-    <button onclick="psi_rotate_plus();update_clashes();">+ 10</button>
-    <button onclick="psi_rotate_minus();update_clashes();">- 10</button>
+    <button onclick="psi_rotate_plus();update_clashes();update_rama();">+ 10</button>
+    <button onclick="psi_rotate_minus();update_clashes();update_rama();">- 10</button>
     <p> Current degree : </p> <p id="psi">0</p>
     
 </center>
