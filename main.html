@@ -141,10 +141,10 @@ function update_clashes() {
 function phi_rotate_plus() { 
   if (aminoAcid == "ala") {
     // Alanine
-    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) 10 30');
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) -10 -30');
   } else if (aminoAcid == "ala-gly") {
     // ALA-GLY
-    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) 10 30');
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) -10 -30');
   }
   phi = phi + 10;
   phi = normalize(phi);
@@ -155,10 +155,10 @@ function phi_rotate_plus() {
 function phi_rotate_minus() {
   if (aminoAcid == "ala") {
     // Alanine
-    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) -10 -30');
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 7) (atomno = 1) 10 30');
   } else if (aminoAcid == "ala-gly") {
     // ALA-GLY
-    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) -10 -30');
+    Jmol.script(jmolApplet0, 'rotate MOLECULAR BRANCH (atomno = 4) (atomno = 9) 10 30');
   }
   phi = phi - 10;
   phi = normalize(phi);
