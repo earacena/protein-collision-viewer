@@ -2,9 +2,44 @@
 <html>
   <head>
     <style>
+      body {
+      }
+      
       div {
 	  display: inline-block;
 	  justify-content: space-between;
+      }
+      
+      .tab {
+	  overflow: hidden;
+	  border: 1px solid #ccc;
+	  background-color: #f1f1f1;
+      }
+
+      .tab button {
+	  background-color: inherit;
+	  float: left;
+	  border: none;
+	  outline: none;
+	  cursor: pointer;
+	  padding: 14px 16px;
+	  transition: 0.3s;
+	  font-size: 17px;
+      }
+
+      .tab button:hover {
+	  background-color: #ddd;
+      }
+
+      .tab button.active {
+	  background-color: #ccc;
+      }
+
+      .tabcontent {
+	  display: none;
+	  padding: 6px 12px;
+	  border: 1px solid #ccc;
+	  border-top: none;
       }
     </style>
 
@@ -299,7 +334,46 @@
       </div>
     </center>
 
+    <center>
+      <div class="tab">
+	<button class="tablink" onclick="open_tab(event, 'TabA')">Tab A, EDIT THIS</button>
+	<button class="tablink" onclick="open_tab(event, 'TabB')">Tab B, EDIT THIS</button>
+	<button class="tablink" onclick="open_tab(event, 'TabC')">Tab C, EDIT THIS</button>
+	<button class="tablink" onclick="open_tab(event, 'TabD')">Tab D, EDIT THIS</button>
+      </div>
 
+      <div id="TabA" class="tabcontent">
+	<p>This is the text inside of Tab A, EDIT THIS.</p>
+      </div>
+
+      <div id="TabB" class="tabcontent">
+	<p>This is the text inside of Tab B, EDIT THIS.</p> 
+      </div>
+
+      <div id="TabC" class="tabcontent">
+	<p>This is is the text inside of Tab C, EDIT This</p>
+      </div>
+
+      <div id="TabD" class="tabcontent">
+	<p>This is is the text inside of Tab D, EDIT This</p>
+      </div>
+      
+      <script>
+	function open_tab(event, tabname) {
+	    var i, tabcontent, tablink;
+	    tabcontent = document.getElementsByClassName("tabcontent");
+	    for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	    }
+	    tablink = document.getElementsByClassName("tablink");
+	    for (i = 0; i < tablink.length; i++) {
+		tablink[i].className = tablink[i].className.replace(" active", "");
+	    }
+	    document.getElementById(tabname).style.display = "block";
+	    event.currentTarget.className += " active";
+	}
+      </script> 
+    </center>
 
   </body>
 </html>
