@@ -285,6 +285,16 @@
 	  return aminoAcid;
       }
 
+      function toggle_vdw() {
+	  var checkbox = document.getElementById("vdw_checkbox");
+	  if (checkbox.checked == true) {
+	      Jmol.script(jmolApplet0, 'isoSurface solvent;color isoSurface translucent');
+	  } else {
+	      Jmol.script(jmolApplet0, 'isoSurface off');
+	      update_clashes();
+	  }
+      }
+
       $(document).ready(function() {
 	  $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
       })
@@ -297,8 +307,6 @@
     </script>
   </head>
   <body onload="load_rama();update_rama();">
-
-    
 
     <center><font size="6"> Amino Acid Collision Viewer with live Ramachandran plot. </font></center>
     <center>
@@ -318,6 +326,7 @@
 	  </select>
 	  <button onclick="load_molecule();">Load</button>
 
+	  <br><br><input type="checkbox" id="vdw_checkbox" onclick="toggle_vdw();"> Enable Van der Waals<br> 
 
 	  <h2 style ="color : black;">Phi Rotation:</h2>
 	  <button onclick="phi_rotate_plus();update_clashes();update_rama();">+ 10</button>
@@ -330,6 +339,8 @@
 	  <button onclick="psi_rotate_plus();update_clashes();update_rama();">+ 10</button>
 	  <button onclick="psi_rotate_minus();update_clashes();update_rama();">- 10</button>
 	  <p> Current degree : </p> <p id="psi">0</p>
+
+	  <input type="checkbox" id="vdw_checkbox" onclick="toggle_vdw();"> Enable Van der Waals<br> 
 	</div>
       </div>
     </center>
