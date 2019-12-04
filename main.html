@@ -175,7 +175,7 @@
       function update_clashes() {
 	  // To return the number of atoms in clash, use this script format:
 	  // x = contact({atomset1} {atomset2});set background [x*90, 0, 0]
-	  Jmol.script(jmolApplet0, 'contact delete;contact {oxygen or carbon or nitrogen} {oxygen or carbon or nitrogen};')
+	  Jmol.script(jmolApplet0, 'contact delete;contact {hydrogen or oxygen or carbon or nitrogen} {hydrogen or oxygen or carbon or nitrogen};')
 	  
 	  return;
       }
@@ -313,7 +313,7 @@
 	  <select id="menu">
 	    <option value = "ala">Alanine (ALA)</option> 
 	    <option value = "ala-gly">Alanine-Glycine (ALA-GLY)</option>
-	    <option value = "arg">Arginine</option>
+	    <option value = "arg">Arginine (ARG)</option>
 	    <option value = "gly">Glycine (GLY)</option>
 	  </select>
 	  <button onclick="load_molecule();">Load</button>
@@ -339,7 +339,7 @@
 	<button class="tablink" onclick="open_tab(event, 'TabA')">Tab A, EDIT THIS</button>
 	<button class="tablink" onclick="open_tab(event, 'TabB')">Tab B, EDIT THIS</button>
 	<button class="tablink" onclick="open_tab(event, 'TabC')">Tab C, EDIT THIS</button>
-	<button class="tablink" onclick="open_tab(event, 'TabD')">Tab D, EDIT THIS</button>
+	<button class="tablink" onclick="open_tab(event, 'TabD')">Tab e, EDIT THIS</button>
       </div>
 
       <div id="TabA" class="tabcontent">
