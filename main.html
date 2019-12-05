@@ -137,10 +137,42 @@
 	  background.src = "https://raw.githubusercontent.com/earacena/protein-collision-viewer/master/data/" + filename;
 	  background.onload = function() {
 	      context.drawImage(background, 0, 0);
+	      place_axis();
+	      update_rama();
+	      
 	  }
 	  return; 
       }
 
+      function place_axis() {
+	  var canvas = document.getElementById("ramacanvas");
+	  var context = canvas.getContext("2d");
+	  context.fillStyle = "red";
+	  context.font = "17px Arial";
+	  // Draw vertical line
+	  context.fillText("180 (Phi)", 185, 20);
+	  context.strokeStyle = "red";
+	  context.beginPath();
+	  context.moveTo(180, 0);
+	  context.lineTo(180, 360);
+	  context.stroke();
+	  context.closePath();
+	  context.fillText("-180 (Phi)", 185, 350)
+	  
+	  // Draw horizontal line
+	  // y axis needs to be inverted 
+	  context.fillText("-180 (Psi)", 10, 175);
+	  context.strokeStyle = "red";
+	  context.beginPath();  
+	  context.moveTo(0, 180);
+	  context.lineTo(360, 180);
+	  context.stroke();
+	  context.closePath();
+	  context.fillText("(Psi) 180", 320, 175)
+
+	  return; 
+      }
+      
       function update_rama() {
 
 	  // Clear canvas to plot image
@@ -152,7 +184,9 @@
 	  background.src = "https://raw.githubusercontent.com/earacena/protein-collision-viewer/master/data/" + filename;
 	  background.onload = function() {
 	      context.drawImage(background, 0, 0);
+	      place_axis();
 	      // Draw vertical line
+	      context.strokeStyle = "black";
 	      context.beginPath();
 	      context.moveTo(180+phi, 0);
 	      context.lineTo(180+phi, 360);
