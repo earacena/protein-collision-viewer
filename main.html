@@ -41,6 +41,34 @@
 	  border: 1px solid #ccc;
 	  border-top: none;
       }
+      div.legend {
+    	position: relative;
+    	width: 420px;
+		height: 180px;
+		border: 1px solid #060606;
+    }
+
+     div.plotBox {
+		  position: relative;
+		  width: 420px;
+		  height: 450px;
+	} 
+
+     div.LabelPhi {
+		  position: absolute;
+		  bottom: 0px;
+  		  left: 170px;
+		width: 50px;
+  		height: 25px;
+	}
+
+	div.LabelPsi {
+		  position: absolute;
+		  bottom: 200px;
+  		  left: 0px;
+		width: 1px;
+  		height: 25px;
+	}
     </style>
 
     <meta charset="utf-8">
@@ -153,29 +181,29 @@
       function place_axis() {
 	  var canvas = document.getElementById("ramacanvas");
 	  var context = canvas.getContext("2d");
-	  context.fillStyle = "red";
+	  context.fillStyle = "black";
 	  context.font = "17px Arial";
 	  // Draw vertical line
-	  context.fillText("180 (Psi)", 185, 20);
+	  context.fillText("180", 0, 20);
 	  context.strokeStyle = "red";
 	  context.beginPath();
-	  context.moveTo(180, 0);
-	  context.lineTo(180, 360);
+	  context.moveTo(180,0);
+	  context.lineTo(180,360);
 	  context.stroke();
 	  context.closePath();
-	  context.fillText("-180 (Psi)", 185, 350)
+	  context.fillText("-180", 0, 355)
+	  context.fillText("0", 0, 198)
 	  
 	  // Draw horizontal line
 	  // y axis needs to be inverted 
-	  context.fillText("-180 (Phi)", 10, 175);
 	  context.strokeStyle = "red";
 	  context.beginPath();  
 	  context.moveTo(0, 180);
 	  context.lineTo(360, 180);
 	  context.stroke();
 	  context.closePath();
-	  context.fillText("(Phi) 180", 290, 175)
-
+	  context.fillText("180", 330, 355 )
+	  context.fillText("0",185,355)
 	  return; 
       }
       
@@ -346,14 +374,21 @@
 
     </script>
   </head>
-  <body onload="load_rama();update_rama();">
+<body onload="load_rama();update_rama();">
 
-    <center><font size="6"> Amino Acid Collision Viewer with live Ramachandran plot. </font></center>
+    <center><font size="6"><b> Amino Acid Collision Viewer with live Ramachandran plot. </b> </font></center>
     <center>
-      <div class=div1>
-	<div>
-	  <h2 style = "color : black;">Ramachandran plot:</h2>
-	  <canvas width=360 height=360 id="ramacanvas"></canvas>
+    <div class = "plotBox">
+			<div>
+			  <h2 style = "color : black;">Ramachandran plot:</h2>
+			  <canvas width=360 height=360 id="ramacanvas"></canvas>
+			</div>
+			<div class = "LabelPhi">
+				<p><b>Phi (&deg)</b></p>
+			</div>
+			<div class = "LabelPsi">
+				<p><b>Psi (&deg)</b></p>
+			</div>
 	</div>
 	<div id="appdiv"></div>
 	<div>
@@ -380,31 +415,47 @@
 
 	</div>
       </div>
+     <div class = "legend">
+    <p> <b> Key </b> <br>
+    	<u>Ramachandran Plot:</u> <br>
+    	<svg width="15" height="15"> <rect width="15" height="15" style="fill:#7F8C8D" /> </svg> 
+    	A position with no major collision of atoms <br>
+    	<svg width="15" height="15"> <rect width="15" height="15" style="fill:#FDFEFE; stroke-width:2;stroke:rgb(0,0,0)"/> </svg>
+    	Positions with collisions of atoms <br> <br>
+    	<u>Molecule Model:</u> <br>
+    	<svg height="14" width="14"> <circle cx="7" cy="7" r="7" fill="red" /></svg>
+    	Oxygen
+    	<svg height="14" width="14"> <circle cx="7" cy="7" r="7" fill="blue" /></svg>
+    	Nitrogen 
+    	<svg height="14" width="14"> <circle cx="7" cy="7" r="7" style="fill:#7F8C8D" /></svg>
+    	Carbon
+    	<svg height="14" width="14"> <circle cx="7" cy="7" r="7" stroke="black" stroke-width="1" fill="white" /></svg>
+    	Hydrogen
+    </p>
+    </div>
+      <div class=div1>
     </center>
     <br>
     <br>
     <center>
       <div class="tab">
-	<button class="tablink" onclick="open_tab(event, 'TabA')">Tab A, EDIT THIS</button>
-	<button class="tablink" onclick="open_tab(event, 'TabB')">Tab B, EDIT THIS</button>
-	<button class="tablink" onclick="open_tab(event, 'TabC')">Tab C, EDIT THIS</button>
-	<button class="tablink" onclick="open_tab(event, 'TabD')">Tab e, EDIT THIS</button>
+	<button class="tablink" onclick="open_tab(event, 'TabA')">About this Simulation</button>
+	<button class="tablink" onclick="open_tab(event, 'TabB')">Background</button>
+	<button class="tablink" onclick="open_tab(event, 'TabC')">References/Resources</button>
       </div>
 
       <div id="TabA" class="tabcontent">
-	<p>This is the text inside of Tab A, EDIT THIS.</p>
+	<p><emsp>This is a simulation of an amino acid and its respective Ramachandran plot. The rotations of
+	the dihedral angles can be changed by pressing the buttons on the right of the 3D simulations. Any changes made to the angle will also be made on the Ramachandran plot to the left of the simulation. The intersection of the black lines identifies the position on the plot the rotations are currently corresponding to. The white area being points of overlap and instability and the grey colored zones being possible conformations of the molecule. The large yellow to red discs identify that there is an overlap in the atoms. The larger the circle the more cross-sectional overlap and the color will get darker. Thus, the optimal orientation is with the smallest circles which represent little to no overlap of atoms in the molecule. We hope that this will help the user visualize the Ramachandran plot more effectively!
+	</p>
       </div>
 
       <div id="TabB" class="tabcontent">
-	<p>This is the text inside of Tab B, EDIT THIS.</p> 
+	<p><emsp>Proteins are one of the fundamental biomolecules in biochemistry and important to fully comprehend in various fields. All proteins produce a recurring shape when they begin to fold after forming a long chain of amino acids. These shapes are an alpha helix (a spiral) or a beta sheet (a zig zag pattern). When trying to study the reason behind proteins making these shapes G.N. Ramachandran made a simple computational experiment which made the first Ramachandran plot. In the experiment every combination of degree change of the dihedral angles (represented by phi and psi) was tested to check if the atoms in the molecule were overlapping. The overlap of atoms is very unstable and thus it is unfavorable for a molecule to conform that way. Thus, in the Ramachandran plot there are various dark points which indicate the presence of an agreeable conformation for the molecule to take. This was a historic discovery for not only explaining a prevalent phenomenon but also with a simple solution.</p> 
       </div>
 
       <div id="TabC" class="tabcontent">
-	<p>This is is the text inside of Tab C, EDIT This</p>
-      </div>
-
-      <div id="TabD" class="tabcontent">
-	<p>This is is the text inside of Tab D, EDIT This</p>
+	<p>I haven't done the citations yet, but credit will be given wherever it is due!</p>
       </div>
       
       <script>
