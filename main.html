@@ -100,7 +100,7 @@
       var aminoAcid = "ala";
 
       // Phi torsion angle
-      var phi = 0;
+      var phi = -90;
 
       // Psi torsion angle
       var psi = 0;
@@ -119,7 +119,11 @@
 	  }
 	  // JSmol load
 	  Jmol.script(jmolApplet0, '!quit;load ./data/' + filename);
-	  phi = 0;
+	  if (aminoAcid == "ala") {
+	      phi = -90;
+	  } else {
+	      phi = 0;
+	  }
 	  document.getElementById("phi").innerText = readphi();
 	  psi = 0;
 	  document.getElementById("psi").innerText = readphi();
