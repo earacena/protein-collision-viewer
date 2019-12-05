@@ -150,25 +150,25 @@
 	  context.fillStyle = "red";
 	  context.font = "17px Arial";
 	  // Draw vertical line
-	  context.fillText("180 (Phi)", 185, 20);
+	  context.fillText("180 (Psi)", 185, 20);
 	  context.strokeStyle = "red";
 	  context.beginPath();
 	  context.moveTo(180, 0);
 	  context.lineTo(180, 360);
 	  context.stroke();
 	  context.closePath();
-	  context.fillText("-180 (Phi)", 185, 350)
+	  context.fillText("-180 (Psi)", 185, 350)
 	  
 	  // Draw horizontal line
 	  // y axis needs to be inverted 
-	  context.fillText("-180 (Psi)", 10, 175);
+	  context.fillText("-180 (Phi)", 10, 175);
 	  context.strokeStyle = "red";
 	  context.beginPath();  
 	  context.moveTo(0, 180);
 	  context.lineTo(360, 180);
 	  context.stroke();
 	  context.closePath();
-	  context.fillText("(Psi) 180", 320, 175)
+	  context.fillText("(Phi) 180", 290, 175)
 
 	  return; 
       }
