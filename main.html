@@ -100,10 +100,10 @@
       var aminoAcid = "ala";
 
       // Phi torsion angle
-      var phi = -90;
+      var phi = 0;
 
       // Psi torsion angle
-      var psi = 0;
+      var psi = -90;
 
       // plane flags
       var plane_flag = false;
@@ -119,14 +119,16 @@
 	  }
 	  // JSmol load
 	  Jmol.script(jmolApplet0, '!quit;load ./data/' + filename);
-	  if (aminoAcid == "ala") {
-	      phi = -90;
-	  } else {
-	      phi = 0;
-	  }
+	  phi = 0;
 	  document.getElementById("phi").innerText = readphi();
-	  psi = 0;
+
+	  if (aminoAcid == "ala") {
+	      psi = -90;
+	  } else {
+	      psi = 0;
+	  }
 	  document.getElementById("psi").innerText = readphi();
+
 	  load_rama();
 	  return;
       }
@@ -367,14 +369,14 @@
 	  <h2 style ="color : black;">Phi Rotation:</h2>
 	  <button onclick="phi_rotate_plus();update_clashes();update_rama();">+ 10</button>
 	  <button onclick="phi_rotate_minus();update_clashes();update_rama();">- 10</button>
-	  <p> Current degree : </p> <p id ="phi">-90</p>
+	  <p> Current degree : </p> <p id ="phi">0</p>
 	  
 	  
 	  
 	  <h2 style ="color : black;">Psi Rotation: </h2>
 	  <button onclick="psi_rotate_plus();update_clashes();update_rama();">+ 10</button>
 	  <button onclick="psi_rotate_minus();update_clashes();update_rama();">- 10</button>
-	  <p> Current degree : </p> <p id="psi">0</p>
+	  <p> Current degree : </p> <p id="psi">-90</p>
 
 	</div>
       </div>
