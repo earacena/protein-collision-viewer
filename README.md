@@ -10,6 +10,7 @@ A 3D visualization of amino acid collisions with live plot representing collisio
 
 [Nelson Lim](https://www.github.com/nerouse/)
 
+## Usage
 ### Instructions
 The project is hosted live via Github Pages at : https://nerouse.github.io/protein-collision
 
